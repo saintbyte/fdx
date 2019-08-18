@@ -15,14 +15,17 @@ class CubeField(models.Field):
     def db_type_parameters(self, connection):
         return super().db_type_parameters(connection)
 
+    def is_engine_support(self, connection):
+        if connection.settings_dict['ENGINE'] in ['django.contrib.gis.db.backends.postgis',
+                                                  'django.db.backends.postgresql',
+                                                  'django.db.backends.postgresql_psycopg2']:
+            return True
+
+        else:
+            # 'django.db.backends.mysql' 'django.db.backends.sqlite3'
+            return False
     def db_type(self, connection):
-        if connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
-            return 'varchar'
-        elif connection.settings_dict['ENGINE'] == 'django.db.backends.sqlite3':
-            return 'text'
-        elif connection.settings_dict['ENGINE'] == 'django.contrib.gis.db.backends.postgis':
-            return 'cube'
-        elif connection.settings_dict['ENGINE'] == 'django.db.backends.postgresql':
+        if self.is_engine_support(connection):
             return 'cube'
         else:
             return 'text'
