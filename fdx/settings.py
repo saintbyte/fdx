@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_hashedfilenamestorage',
     'any_imagefield',
     'django_pgcube',
     'fdx_search',
