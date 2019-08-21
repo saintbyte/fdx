@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
-    <div>
-        <img src="{{ image.file.url }}">
+    <div  style="position: relative;">
+        <img src="{{ image.file.url }}"  style="position: relative;">
     {% for location in face_locations  %}
         <div style="position: relative; border: 1px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div>
     {% endfor %}
