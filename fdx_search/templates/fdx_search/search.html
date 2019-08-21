@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block body %}
-    <div><img src="{{ image.file.url }}"></div>
+    <div>
+        <img src="{{ image.file.url }}">
+    {% for location in face_locations  %}
+        <div style="position: relative; border: 1px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div>
+    {% endfor %}
+    </div>
     {{ image.file_md5 }}<br />
-    {{ image.width }}x{{ image.height }}<br />
+    {{ image.width }}x{{ image.height }}
+    {# for top, right, bottom, left in face_locations: #}
 {% endblock %}
