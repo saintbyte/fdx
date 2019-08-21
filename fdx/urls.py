@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from fdx_search.views import home, search
+from fdx_search.views import home, search, search1, search2
 urlpatterns = [
     path('', home, name='home'),
     path('search/', search, name='search'),
-    path('search/<slug:slug11>/', search, name='search_1'),
-    path('search/<slug:slug11>/<slug:slug22>/', search, name='search_2'),
+    path('search/<slug:slug11>/', search1, name='search_1'),
+    path('search/<slug:slug11>/<slug:slug22>/', search2, name='search_2'),
     path('admin/', admin.site.urls),
 ]
