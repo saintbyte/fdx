@@ -18,6 +18,7 @@ class UploadedImages(models.Model):
     md5 = models.CharField(max_length=32, blank=False, default="", unique=True, verbose_name="MD5")
     width = models.IntegerField(blank=True, default=0, verbose_name='Width')
     height = models.IntegerField(blank=True, default=0, verbose_name='Height')
+    state = models.IntegerField(blank=True, default=0, verbose_name='Height')
     face_count = models.IntegerField(blank=True, default=0, verbose_name='Face Count')
 
     def save(self, *args, **kwargs):

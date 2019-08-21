@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-    {{ file_md5 }}<br />
-    {{ width }}x{{ height }}<br />
+    <div><img src="{{ image.file.url }}"></div>
+    {{ image.file_md5 }}<br />
+    {{ image.width }}x{{ image.height }}<br />
 {% endblock %}
