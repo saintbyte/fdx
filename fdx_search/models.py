@@ -15,11 +15,17 @@ def md5_file_name(instance, filename):
 
 class UploadedImages(models.Model):
     file = AnyImageField("Image", upload_to='searches')
+    md5 = models.CharField(max_length=32, blank=False, default="", unique=True, verbose_name="MD5")
+    width = models.IntegerField(blank=True, default=0, verbose_name='Width')
+    height = models.IntegerField(blank=True, default=0, verbose_name='Height')
     face_count = models.IntegerField(blank=True, default=0, verbose_name='Face Count')
 
     def save(self, *args, **kwargs):
         basename, ext = os.path.splitext(self.file.path)
         super(UploadedImages, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.md5
 
     class Meta:
         verbose_name_plural = 'Картинки загруженные для поиска'
