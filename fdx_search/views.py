@@ -24,7 +24,7 @@ def search(request):
            hasher.update(chunk)
     file_md5 = hasher.hexdigest()
     try:
-        UploadedImages.objects.get(md=file_md5)
+        UploadedImages.objects.get(md5=file_md5)
         return redirect('search_1', slug11=file_md5)
     except:
         pass
