@@ -54,19 +54,28 @@ def search1(request,slug11):
     image = face_recognition.load_image_file(ui.file.path)
     ctx['face_locations'] = []
     face_locations = face_recognition.face_locations(image)
-    for top, right, bottom, left in face_locations:
-        ctx['face_locations'].append({
-            'top': top,
-            'right': right,
-            'bottom': bottom,
-            'left':left,
-            'width': (right - left),
-            'height': (bottom - top)
-        })
     faces = len(ctx['face_locations'])
-    ui.face_count = faces
-    ui.save()
-    return render(request, 'fdx_search/search.html',ctx)
+    if faces == 0:
+        return search_error(request,'Не удалось найти лица на фото')
+    elif faces == 1:
+        return redirect('search_1', slug11=ui.md5б slug22=0)
+    else:
+        cnt = 0
+        for top, right, bottom, left in face_locations:
+            ctx['face_locations'].append({
+                'cnt': cnt,
+                'top': top,
+                'right': right,
+                'bottom': bottom,
+                'left':left,
+                'width': (right - left),
+                'height': (bottom - top)
+            })
+            cnt = cnt + 1
+        faces = len(ctx['face_locations'])
+        ui.face_count = faces
+        ui.save()
+        return render(request, 'fdx_search/search.html',ctx)
 
 def search2(request,slug11,slug22):
     ctx = {}
