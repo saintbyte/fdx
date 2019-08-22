@@ -64,7 +64,7 @@ def search1(request,slug11):
         return search_error(request,'Не удалось найти лица на фото')
     elif faces == 1:
         (top, right, bottom, left) =  face_locations[0]
-        return redirect('search_1', slug11=ui.md5, slug22=encode_face_link(0, top, right, bottom, left))
+        return redirect('search_2', slug11=ui.md5, slug22=encode_face_link(0, top, right, bottom, left))
     else:
         cnt = 0
         for top, right, bottom, left in face_locations:
