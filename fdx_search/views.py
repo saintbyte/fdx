@@ -23,6 +23,11 @@ def search(request):
     for chunk in request.FILES['file'].chunks():
            hasher.update(chunk)
     file_md5 = hasher.hexdigest()
+    try:
+        UploadedImages.objects.get(md=file_md5)
+        return redirect('search_1', slug11=file_md5)
+    except:
+        pass
     #-----
     try:
         im = Image.open(request.FILES['file'])
