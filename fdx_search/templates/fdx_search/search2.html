@@ -5,7 +5,13 @@
     <div  style="position: relative;">
         <img src="{{ image.file.url }}"  style="position: relative;">
     {% for location in face_locations  %}
-        <div style="position: absolute; border: 1px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div>
+    {% for location in face_locations  %}
+        {% if location.num == num %}
+            <div style="position: absolute; border: 2px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div>
+        {% else %}
+        <a href="{{ link }}/"><div style="position: absolute; border: 1px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div></a>
+        {% endif %}
+    {% endfor %}
     {% endfor %}
     </div>
     {{ image.file_md5 }}<br />

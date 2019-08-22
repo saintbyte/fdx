@@ -86,7 +86,6 @@ def search1(request,slug11):
 
 def search2(request,slug11,slug22):
     ctx = {}
-
     try:
         ui = UploadedImages.objects.get(md5=slug11)
     except:
@@ -96,6 +95,20 @@ def search2(request,slug11,slug22):
     ctx['face_locations'] = []
     face_locations = face_recognition.face_locations(image)
     faces = len(ctx['face_locations'])
+    cnt = 0
+    for top, right, bottom, left in face_locations:
+        ctx['face_locations'].append({
+                'cnt': cnt,
+                'top': top,
+                'right': right,
+                'bottom': bottom,
+                'left':left,
+                'width': (right - left),
+                'height': (bottom - top),
+                'link': encode_face_link(cnt, top, right, bottom, left)
+        })
+        cnt = cnt + 1
+
     (num,top, right, bottom, left) = decode_face_link(slug22)
     encoding = face_recognition.face_encodings(image,known_face_locations=face_locations)[num]
     ctx['num'] = num
