@@ -19,11 +19,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='faces',
             name='vec_high',
-            field=django_pgcube.fields.CubeField(default=[], verbose_name='Фейс кодирование 2'),
+            field=django_pgcube.fields.CubeField(verbose_name='Фейс кодирование 2'),
         ),
         migrations.AddField(
             model_name='faces',
             name='vec_low',
-            field=django_pgcube.fields.CubeField(default=[], verbose_name='Фейс кодирование 1'),
+            field=django_pgcube.fields.CubeField(verbose_name='Фейс кодирование 1'),
         ),
     ]

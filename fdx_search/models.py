@@ -68,8 +68,8 @@ class Faces(models.Model):
     bottom = models.IntegerField(blank=True, default=0, verbose_name='Bottom')
     left = models.IntegerField(blank=True, default=0, verbose_name='Left')
     type_of_metod = models.IntegerField(blank=True, default=0, verbose_name='Метод кодирование фейса')
-    vec_low = CubeField(default=[], verbose_name='Фейс кодирование 1')
-    vec_high = CubeField(default=[], verbose_name='Фейс кодирование 2')
+    vec_low = CubeField(verbose_name='Фейс кодирование 1')
+    vec_high = CubeField(verbose_name='Фейс кодирование 2')
 
     class Meta:
         verbose_name_plural = 'Лица'
