@@ -13,7 +13,7 @@ class CubeField(models.Field):
         return super().value_to_string(obj)
 
     def db_type_parameters(self, connection):
-        return super().db_type_parameters(connection)
+        return None
 
     def is_engine_support(self, connection):
         if connection.settings_dict['ENGINE'] in ['django.contrib.gis.db.backends.postgis',
