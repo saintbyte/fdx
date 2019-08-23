@@ -20,7 +20,6 @@ class CubeField(models.Field):
                                                   'django.db.backends.postgresql',
                                                   'django.db.backends.postgresql_psycopg2']:
             return True
-
         else:
             # 'django.db.backends.mysql' 'django.db.backends.sqlite3'
             return False
@@ -38,6 +37,5 @@ class CubeField(models.Field):
     def to_python(self, value):
         if isinstance(value, str):
             # Assume we're deserializing
-            vals = json.loads(value)
-            value = [self.base_field.to_python(val) for val in vals]
+            pass
         return value
