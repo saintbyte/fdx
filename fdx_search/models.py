@@ -52,7 +52,8 @@ class Images(models.Model):
     page = models.ForeignKey(Pages, on_delete=models.CASCADE, related_name="image2page", blank=True, null=True,
                              verbose_name="Веб страница")
     url = models.URLField(verbose_name="Адрес")
-
+    alt = models.CharField(max_length=1024, verbose_name='Alt')
+    tagNum = models.IntegerField(blank=True, default=0, verbose_name='Tag')
     class Meta:
         verbose_name_plural = 'Изображения'
         verbose_name = 'Изображение'

@@ -23,6 +23,7 @@ class CubeField(models.Field):
         else:
             # 'django.db.backends.mysql' 'django.db.backends.sqlite3'
             return False
+
     def db_type(self, connection):
         if self.is_engine_support(connection):
             return 'cube'
@@ -30,9 +31,14 @@ class CubeField(models.Field):
             return 'text'
 
     def get_db_prep_value(self, value, connection, prepared=False):
+        if isinstance(value, (str)):
+            s = value
         if isinstance(value, (list, tuple)):
-            return [self.base_field.get_db_prep_value(i, connection, prepared=False) for i in value]
-        return value
+            s = ','.join(str(si) for si in value)
+        if self.is_engine_support(connection):
+            return 'CUBE(array[{}])'.format(s)
+        else:
+            return s
 
     def to_python(self, value):
         if isinstance(value, str):

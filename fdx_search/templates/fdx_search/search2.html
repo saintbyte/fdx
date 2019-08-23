@@ -9,7 +9,7 @@
         {% if location.num == num %}
             <div style="position: absolute; border: 3px dotted red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div>
         {% else %}
-        <a href="{{  location.link }}/"><div style="position: absolute; border: 1px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div></a>
+        <a href="{{ location.link }}/"><div style="position: absolute; border: 1px solid red; top: {{ location.top}}px;left: {{ location.left}}px;width: {{ location.width}}px; height: {{ location.height}}px "></div></a>
         {% endif %}
     {% endfor %}
     {% endfor %}
@@ -24,6 +24,9 @@
     ctx['left'] ={{ bottom }}<br />
     ctx['width'] ={{ width }}<br />
     ctx['height']={{ height }}<br />
-    ctx['encoding'] ={{ encoding }}<br />
+    ctx['encoding'] ={{ encoding }}<br /><br /><br />
+    <pre>
+    {{ query }}
+    </pre>
 
 {% endblock %}
