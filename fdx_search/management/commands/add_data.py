@@ -71,7 +71,7 @@ class Command(BaseCommand):
             query = """
               INSERT INTO "fdx_search_faces" ("image_id",
                 "people_id", "top", "right", "bottom", "left", "type_of_metod", "vec_low", "vec_high")
-                VALUES (%s, NULL, %s, %s, %s, %s, %s, CUBE(ARRAY[%s]), CUBE(ARRAY[%s])) RETURNING "fdx_search_faces"."id"'
+                VALUES (%s, NULL, %s, %s, %s, %s, %s, CUBE(ARRAY[%s]), CUBE(ARRAY[%s])) RETURNING "fdx_search_faces"."id"
             """ % (im.pk, top, right, bottom, left, 1, vec_low, vec_high)
             #print(query)
             #Faces.objects.raw(query
