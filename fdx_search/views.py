@@ -138,4 +138,5 @@ def search2(request, slug11, slug22):
                 searched_vec_low,
                 searched_vec_high, )
     ctx['query'] = query
+    #Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)

@@ -30,7 +30,10 @@ class CubeField(models.Field):
         else:
             return 'text'
 
-    def get_db_prep_value(self, value, connection, prepared=True):
+    #def get_db_prep_value(self, value, connection, prepared=True):
+
+
+    def get_db_prep_save(self, value, connection):
         if isinstance(value, (str)):
             s = value
         if isinstance(value, (list, tuple)):
@@ -39,10 +42,6 @@ class CubeField(models.Field):
             return 'CUBE(array[{}])'.format(s)
         else:
             return s
-
-    def get_db_prep_save(self, value, connection):
-        """Return field's value prepared for saving into a database."""
-        return self.get_db_prep_value(value, connection=connection, prepared=True)
 
     def to_python(self, value):
         if isinstance(value, str):
