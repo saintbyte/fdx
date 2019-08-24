@@ -8,6 +8,8 @@ from django.template.defaultfilters import slugify
 from django.contrib.gis.geos import Point
 import os
 import sys
+from django.db import connection
+
 from fdx_search.models import *
 
 class Command(BaseCommand):
@@ -24,6 +26,7 @@ class Command(BaseCommand):
         filename = str(options['file'][0])
         fh = open(filename, 'r')
         faces = False
+        cursor = connection.cursor()
         mcnt = 0
         for line in fh:
             mcnt = mcnt + 1
@@ -71,6 +74,7 @@ class Command(BaseCommand):
                 VALUES (%s, NULL, %s, %s, %s, %s, %s, CUBE(ARRAY[%s]), CUBE(ARRAY[%s])) RETURNING "fdx_search_faces"."id"'
             """ % (im.pk, top, right, bottom, left, 1, vec_low, vec_high)
             #print(query)
-            Faces.objects.raw(query)
+            #Faces.objects.raw(query
+            cursor.execute(query)
         fh.close()
         self.stdout.write(self.style.SUCCESS('End'))
