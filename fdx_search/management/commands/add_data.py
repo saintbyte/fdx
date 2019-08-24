@@ -45,6 +45,7 @@ class Command(BaseCommand):
             vec_low = arr[1]
             vec_high = arr[2]
             (top, right, bottom, left) = location.split(',')
+            """
             f = Faces()
             f.image = im
             f.people = None
@@ -56,5 +57,13 @@ class Command(BaseCommand):
             f.vec_low = vec_low
             f.vec_high = vec_high
             f.save()
+            """
+            query = """
+              INSERT INTO "fdx_search_faces" ("image_id",
+                "people_id", "top", "right", "bottom", "left", "type_of_metod", "vec_low", "vec_high")
+                VALUES (%s, NULL, %s, %s, %s, %s, %s, CUBE(ARRAY[%s]), CUBE(ARRAY[%s])) RETURNING "fdx_search_faces"."id"'
+            """ % (im.pk, top, right, bottom, left, 1, vec_low, vec_high)
+            print(query)
+            Faces.objects.raw(query)
         fh.close()
         self.stdout.write(self.style.SUCCESS('End'))
