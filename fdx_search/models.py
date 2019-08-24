@@ -41,7 +41,7 @@ class Peoples(models.Model):
 
 
 class Pages(models.Model):
-    url = models.CharField(max_length=1024, default="", verbose_name="Адрес")
+    url = models.CharField(max_length=1024, default="", verbose_name="Адрес", unique=True)
 
     class Meta:
         verbose_name_plural = 'Веб страницы'

@@ -18,10 +18,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS('Start'))
+        #Clear
+        Faces.objects.all().delete()
+        Images.objects.all().delete()
         filename = str(options['file'][0])
         fh = open(filename, 'r')
         faces = False
+        mcnt = 0
         for line in fh:
+            mcnt = mcnt + 1
+            if mcnt % 1000 == 0:
+                print(str(mcnt))
             line = line.strip()
             if line == '---':
                 faces = False
@@ -63,7 +70,7 @@ class Command(BaseCommand):
                 "people_id", "top", "right", "bottom", "left", "type_of_metod", "vec_low", "vec_high")
                 VALUES (%s, NULL, %s, %s, %s, %s, %s, CUBE(ARRAY[%s]), CUBE(ARRAY[%s])) RETURNING "fdx_search_faces"."id"'
             """ % (im.pk, top, right, bottom, left, 1, vec_low, vec_high)
-            print(query)
+            #print(query)
             Faces.objects.raw(query)
         fh.close()
         self.stdout.write(self.style.SUCCESS('End'))
