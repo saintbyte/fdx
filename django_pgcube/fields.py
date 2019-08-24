@@ -39,7 +39,7 @@ class CubeField(models.Field):
         if isinstance(value, (list, tuple)):
             s = ','.join(str(si) for si in value)
         if self.is_engine_support(connection):
-            return "CUBE(array[ %s ])" % s
+            return str("CUBE(array[ %s ])" % s)
         else:
             return s
 
