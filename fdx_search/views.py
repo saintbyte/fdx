@@ -139,12 +139,11 @@ def search2(request, slug11, slug22):
                              CUBE(array[{}]) <-> vec_high, 2)
                            ) AS koof
                            FROM fdx_search_faces
-                           WHERE
-                              koof  <= {}
+
                            ORDER BY
-                              koof DESC
+                              koof
                            LIMIT 10
             """.format(searched_vec_low, searched_vec_high, threshold)
     ctx['query'] = query
-    #ctx['results'] = Faces.objects.raw(query)
+    ctx['results'] = Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)
