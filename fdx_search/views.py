@@ -140,8 +140,8 @@ def search2(request, slug11, slug22):
                              " FROM fdx_search_faces"+\
                              " WHERE"+\
                              " koof  <= {} ".format(threshold)+\
-                              "ORDER BY"+\
-                              "koof DESC LIMIT 10 "
+                              " ORDER BY"+\
+                              " koof DESC LIMIT 10 "
     ctx['query'] = query
     ctx['results'] = Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)
