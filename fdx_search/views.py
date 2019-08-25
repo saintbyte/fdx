@@ -129,15 +129,19 @@ def search2(request, slug11, slug22):
     searched_vec_low = ','.join(str(s) for s in encoding[0:64])
     searched_vec_high = ','.join(str(s) for s in encoding[64:128])
     threshold = 0.5
-    query = "SELECT * FROM fdx_search_faces WHERE sqrt(power(CUBE(array[{}]) <-> vec_low, 2) + power(CUBE(array[{}]) <-> vec_high, 2)) <= {} ".format(
-        searched_vec_low,
-        searched_vec_high,
-            threshold,
-        ) + \
-                "ORDER BY sqrt(power(CUBE(array[{}]) <-> vec_low, 2) + power(CUBE(array[{}]) <-> vec_high, 2)) <-> vec_high) ASC LIMIT 10".format(
-                searched_vec_low,
-                searched_vec_high,
-                )
+    query = "SELECT id, sqrt(" + \
+                             " power(" + \
+                             " CUBE(array[{}])".format(searched_vec_low)+ \
+                             " <-> vec_low, 2)" +\
+                             " +"+ \
+                             " power(CUBE(array[{}])".format(searched_vec_high)+ \
+                             " <-> vec_high, 2)"+\
+                             " ) AS koof"+\
+                             " FROM fdx_search_faces"+\
+                             " WHERE"+\
+                             " koof  <= {} ".format(threshold)+\
+                              "ORDER BY"+\
+                              "koof DESC LIMIT 10 "
     ctx['query'] = query
     #Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)
