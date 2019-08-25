@@ -143,5 +143,5 @@ def search2(request, slug11, slug22):
                               "ORDER BY"+\
                               "koof DESC LIMIT 10 "
     ctx['query'] = query
-    #Faces.objects.raw(query)
+    Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)
