@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .models import UploadedImages
+from .models import UploadedImages, Faces, Pages, Peoples, Images
 import face_recognition
 import numpy as np
 import hashlib
@@ -143,5 +143,5 @@ def search2(request, slug11, slug22):
                               "ORDER BY"+\
                               "koof DESC LIMIT 10 "
     ctx['query'] = query
-    Faces.objects.raw(query)
+    ctx['results'] = Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)

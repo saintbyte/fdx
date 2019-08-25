@@ -24,9 +24,13 @@
     ctx['left'] ={{ bottom }}<br />
     ctx['width'] ={{ width }}<br />
     ctx['height']={{ height }}<br />
-    ctx['encoding'] ={{ encoding }}<br /><br /><br />
+    {#  %}ctx['encoding'] ={{ encoding }}<br /><br /><br />  #}
     <pre>
     {{ query }}
     </pre>
+    {%  for item in results %}
+        <div style="padding: 7px; margin: 4px; border-bottom: 1px solid grey">
 
+        </div>
+    {% endfor %}
 {% endblock %}
