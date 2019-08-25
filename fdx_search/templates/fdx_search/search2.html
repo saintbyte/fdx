@@ -30,7 +30,7 @@
     </pre>
     {%  for item in results %}
         <div style="padding: 7px; margin: 4px; border-bottom: 1px solid grey">
-        <a href="{{ item.image.url }}" target="_blank">{{ item.image.url }}</a>
+        <a href="{{ item.image.url }}" target="_blank">{{ item.image.url }} {{ item.koof }}
         </div>
     {% endfor %}
 {% endblock %}
