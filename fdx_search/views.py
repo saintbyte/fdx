@@ -126,15 +126,15 @@ def search2(request, slug11, slug22):
     ctx['width'] = (right - left)
     ctx['height'] = (bottom - top)
     ctx['encoding'] = encoding
-    searched_vec_low = ','.join(str(s) for s in encoding[0][0:64])
-    searched_vec_high = ','.join(str(s) for s in encoding[0][64:128])
-    threshold = 0.6
+    searched_vec_low = ','.join(str(s) for s in encoding[0:64])
+    searched_vec_high = ','.join(str(s) for s in encoding[64:128])
+    threshold = 0.5
     query = "SELECT id FROM fdx_search_faces WHERE sqrt(power(CUBE(array[{}]) <-> vec_low, 2) + power(CUBE(array[{}]) <-> vec_high, 2)) <= {} ".format(
         searched_vec_low,
         searched_vec_high,
         threshold,
     ) + \
-            "ORDER BY sqrt(power(CUBE(array[{}]) <-> vec_low, 2) + power(CUBE(array[{}]) <-> vec_high, 2)) <-> vec_high) ASC LIMIT 1".format(
+            "ORDER BY sqrt(power(CUBE(array[{}]) <-> vec_low, 2) + power(CUBE(array[{}]) <-> vec_high, 2)) <-> vec_high) ASC LIMIT 10".format(
                 searched_vec_low,
                 searched_vec_high, )
     ctx['query'] = query
