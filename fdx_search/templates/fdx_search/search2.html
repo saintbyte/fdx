@@ -26,11 +26,11 @@
     ctx['height']={{ height }}<br />
     {#  %}ctx['encoding'] ={{ encoding }}<br /><br /><br />  #}
     <pre>
-    {{ query }}
+    {# {{ query }} #}
     </pre>
     {%  for item in results %}
         <div style="padding: 7px; margin: 4px; border-bottom: 1px solid grey">
-
+        <a href="{{ item.image.url }}" target="_blank">{{ item.image.url }}</a>
         </div>
     {% endfor %}
 {% endblock %}
