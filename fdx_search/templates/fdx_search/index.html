@@ -1,12 +1,26 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="container">
-    <form action="/search/" enctype="multipart/form-data" method="post">
-        {% csrf_token %}
-<div class="field">
-  <div class="file is-centered is-boxed is-success has-name">
-    <label class="file-label">
-      <input class="file-input" type="file" name="file" id="file" accept="image/*">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    FDX
+                </h1>
+
+                <h2 class="subtitle">
+                    Найдутся все
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <form action="/search/" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="file is-centered is-boxed is-success has-name">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="file" id="file" accept="image/*">
       <span class="file-cta">
         <span class="file-icon">
           <i class="fas fa-upload"></i>
@@ -18,24 +32,25 @@
       <span class="file-name" id="filename">
 
       </span>
-    </label>
-  </div>
-</div>
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link">Искать</button>
-  </div>
-</div>
-    </form>
-    <script>
-        var file = document.getElementById("file");
-        file.onchange = function () {
-            if (file.files.length > 0) {
+                        </label>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Искать</button>
+                    </div>
+                </div>
+            </form>
+            <script>
+                var file = document.getElementById("file");
+                file.onchange = function () {
+                    if (file.files.length > 0) {
 
-                document.getElementById('filename').innerHTML = file.files[0].name;
+                        document.getElementById('filename').innerHTML = file.files[0].name;
 
-            }
-        };
-    </script>
-</div>
+                    }
+                };
+            </script>
+        </div>
+    </section>
 {% endblock %}
