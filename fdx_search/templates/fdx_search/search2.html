@@ -7,7 +7,15 @@
         <img src="{{ image.file.url }}" class="photo" style="position: relative;" data-image-width="{{ image.width }}"
              data-image-height="{{ image.height }}">
         {% for location in face_locations %}
-            <a href="{{ location.link }}/">
+            {% if location.cnt == num %}
+                <div class="face_border" style="position: absolute; border: 3px solid #ff2cc8; "
+                     data-src-top="{{ location.top }}"
+                     data-src-left="{{ location.left }}"
+                     data-src-width="{{ location.width }}"
+                     data-src-height="{{ location.height }}"
+                        ></div>
+            {% else %}
+            <a href="/search/{{ image.file_md5 }}/{{ location.link }}/">
                 <div class="face_border" style="position: absolute; border: 1px solid red; "
                      data-src-top="{{ location.top }}"
                      data-src-left="{{ location.left }}"
@@ -15,6 +23,7 @@
                      data-src-height="{{ location.height }}"
                         ></div>
             </a>
+            {% endif %}
         {% endfor %}
     </div>
     {#{{ image.file_md5 }}<br /> #}
