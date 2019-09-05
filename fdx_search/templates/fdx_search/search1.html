@@ -2,20 +2,38 @@
 {% block title %}FDX{% endblock %}
 {% block content %}
     <h1>Search</h1>
-    <div  id="photo_view_div" style="position: relative;">
-        <img src="{{ image.file.url }}" class="photo" style="position: relative;" data-image-width="{{ image.width }}" data-image-height="{{ image.height }}">
-    {% for location in face_locations  %}
-        <a href="{{ location.link }}/">
-            <div class="face_border" style="position: absolute; border: 1px solid red; "
-                 data-src-top="{{ location.top }}"
-                 data-src-left="{{ location.left}}"
-                 data-src-width="{{ location.width}}"
-                 data-src-height="{{ location.height}}"
-                    ></div>
-        </a>
-    {% endfor %}
+    <div id="photo_view_div" style="position: relative;">
+        <img src="{{ image.file.url }}" class="photo" style="position: relative;" data-image-width="{{ image.width }}"
+             data-image-height="{{ image.height }}">
+        {% for location in face_locations %}
+            <a href="{{ location.link }}/">
+                <div class="face_border" style="position: absolute; border: 1px solid red; "
+                     data-src-top="{{ location.top }}"
+                     data-src-left="{{ location.left }}"
+                     data-src-width="{{ location.width }}"
+                     data-src-height="{{ location.height }}"
+                        ></div>
+            </a>
+        {% endfor %}
     </div>
-    {{ image.file_md5 }}<br />
+    {{ image.file_md5 }}<br/>
     {{ image.width }}x{{ image.height }}
     {# for top, right, bottom, left in face_locations: #}
+    <script>
+        function pix2pr(srcD, pixV) {
+            return ( pixV / srcD) * 100
+        }
+        var div = document.getElementById('photo_view_div')
+        var image = div.getElementsByClassName('photo')[0]
+        var width = parseInt(image.dataset.imageWidth, 10)
+        var height = parseInt(image.dataset.imageHeight, 10)
+        var face_borders_arr = div.getElementsByClassName('face_border');
+        for (var i = 0; i < face_borders_arr.length; i++) {
+            var item = face_borders_arr[i]
+            item.style.top = pix2pr(height, parseInt(item.dataset.srcTop)).toString() + "%"
+            item.style.height = pix2pr(height, parseInt(item.dataset.srcHeight)).toString() + "%"
+            item.style.left = pix2pr(width, parseInt(item.dataset.srcLeft)).toString() + "%"
+            item.style.width = pix2pr(width, parseInt(item.dataset.srcWidth)).toString() + "%"
+        }
+    </script>
 {% endblock %}
