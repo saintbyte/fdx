@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'any_imagefield',
     'django_pgcube',
+    'fdx_indexer',
     'fdx_search',
 
 ]

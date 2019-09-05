@@ -1,26 +1,12 @@
 {% extends "base.html" %}
-{% block body %}
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    FDX
-                </h1>
-
-                <h2 class="subtitle">
-                    Найдутся все
-                </h2>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <form action="/search/" enctype="multipart/form-data" method="post" id="search_form">
-                {% csrf_token %}
-                <div class="field">
-                    <div class="file is-centered is-boxed is-success has-name">
-                        <label class="file-label">
-                            <input class="file-input" type="file" name="file" id="file" accept="image/*">
+{% block title %}FDX{% endblock %}
+{% block content %}
+    <form action="/search/" enctype="multipart/form-data" method="post" id="search_form">
+        {% csrf_token %}
+        <div class="field">
+            <div class="file is-centered is-boxed is-success has-name">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="file" id="file" accept="image/*">
       <span class="file-cta">
         <span class="file-icon">
           <i class="fas fa-upload"></i>
@@ -29,23 +15,19 @@
           Картинка…
         </span>
       </span>
-      <span class="file-name" id="filename"></span>
-                        </label>
-                    </div>
-                </div>
-            </form>
-            <script>
-                var file = document.getElementById("file");
-                file.onchange = function () {
-                    if (file.files.length > 0) {
-
-                        document.getElementById('search_form').submit();
-                        document.getElementById('filename').innerHTML = file.files[0].name;
-                        document.getElementById('filename').innerHTML = document.getElementById('filename').innerHTML+'...';
-
-                    }
-                };
-            </script>
+                    <span class="file-name" id="filename"></span>
+                </label>
+            </div>
         </div>
-    </section>
+    </form>
+    <script>
+        var file = document.getElementById("file");
+        file.onchange = function () {
+            if (file.files.length > 0) {
+                document.getElementById('search_form').submit();
+                document.getElementById('filename').innerHTML = file.files[0].name;
+                document.getElementById('filename').innerHTML = document.getElementById('filename').innerHTML + '...';
+            }
+        };
+    </script>
 {% endblock %}
