@@ -2,11 +2,11 @@
 {% block title %}FDX{% endblock %}
 {% block content %}
     <h1>Search</h1>
-    <div  style="position: relative;">
-        <img src="{{ image.file.url }}"  style="position: relative;" data-image-width="{{ image.width }}" data-image-height="{{ image.height }}">
+    <div  id="photo_view_div" style="position: relative;">
+        <img src="{{ image.file.url }}" class="photo" style="position: relative;" data-image-width="{{ image.width }}" data-image-height="{{ image.height }}">
     {% for location in face_locations  %}
-        <a href="{{  location.link }}/">
-            <div style="position: absolute; border: 1px solid red; "
+        <a href="{{ location.link }}/">
+            <div class="face_border" style="position: absolute; border: 1px solid red; "
                  data-src-top="{{ location.top }}"
                  data-src-left="{{ location.left}}"
                  data-src-width="{{ location.width}}"
