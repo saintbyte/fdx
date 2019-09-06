@@ -55,7 +55,7 @@
         var height = parseInt(image.dataset.imageHeight, 10);
         function pos_face_border() {
             var face_borders_arr = div.getElementsByClassName('face_border');
-            if (document.getElementById('photo_view_div').parentNode.offsetWidth > width) {
+            if (document.getElementById('photo_view_div').parentNode.offsetWidth < width) {
 
                 for (var i = 0; i < face_borders_arr.length; i++) {
                     var item = face_borders_arr[i];
