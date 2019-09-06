@@ -3,7 +3,7 @@
 {% block content %}
 
     <h1>Search</h1>
-      <div id="photo_view_div" style="position: relative;">
+    <div id="photo_view_div" style="position: relative;">
         <img src="{{ image.file.url }}" class="photo" style="position: relative;" data-image-width="{{ image.width }}"
              data-image-height="{{ image.height }}">
         {% for location in face_locations %}
@@ -15,14 +15,14 @@
                      data-src-height="{{ location.height }}"
                         ></div>
             {% else %}
-            <a href="/search/{{ image.file_md5 }}/{{ location.link }}/">
-                <div class="face_border" style="position: absolute; border: 1px solid red; "
-                     data-src-top="{{ location.top }}"
-                     data-src-left="{{ location.left }}"
-                     data-src-width="{{ location.width }}"
-                     data-src-height="{{ location.height }}"
-                        ></div>
-            </a>
+                <a href="/search/{{ image.file_md5 }}/{{ location.link }}/">
+                    <div class="face_border" style="position: absolute; border: 1px solid red; "
+                         data-src-top="{{ location.top }}"
+                         data-src-left="{{ location.left }}"
+                         data-src-width="{{ location.width }}"
+                         data-src-height="{{ location.height }}"
+                            ></div>
+                </a>
             {% endif %}
         {% endfor %}
     </div>
@@ -40,26 +40,45 @@
     <pre>
     {# {{ query }} #}
     </pre>
-    {%  for item in results %}
+    {% for item in results %}
         <div style="padding: 7px; margin: 4px; border-bottom: 1px solid grey">
-        <a href="{{ item.image.url }}" target="_blank">{{ item.image.url }}</a> <i>{{ item.koof }}</i>
+            <a href="{{ item.image.url }}" target="_blank">{{ item.image.url }}</a> <i>{{ item.koof }}</i>
         </div>
     {% endfor %}
     <script>
         function pix2pr(srcD, pixV) {
             return ( pixV / srcD) * 100
         }
-        var div = document.getElementById('photo_view_div')
-        var image = div.getElementsByClassName('photo')[0]
-        var width = parseInt(image.dataset.imageWidth, 10)
-        var height = parseInt(image.dataset.imageHeight, 10)
-        var face_borders_arr = div.getElementsByClassName('face_border');
-        for (var i = 0; i < face_borders_arr.length; i++) {
-            var item = face_borders_arr[i]
-            item.style.top = pix2pr(height, parseInt(item.dataset.srcTop)).toString() + "%"
-            item.style.height = pix2pr(height, parseInt(item.dataset.srcHeight)).toString() + "%"
-            item.style.left = pix2pr(width, parseInt(item.dataset.srcLeft)).toString() + "%"
-            item.style.width = pix2pr(width, parseInt(item.dataset.srcWidth)).toString() + "%"
+        var div = document.getElementById('photo_view_div');
+        var image = div.getElementsByClassName('photo')[0];
+        var width = parseInt(image.dataset.imageWidth, 10);
+        var height = parseInt(image.dataset.imageHeight, 10);
+        function pos_face_border() {
+            var face_borders_arr = div.getElementsByClassName('face_border');
+            if (document.getElementById('photo_view_div').parentNode.offsetWidth > width) {
+
+                for (var i = 0; i < face_borders_arr.length; i++) {
+                    var item = face_borders_arr[i];
+                    item.style.top = pix2pr(height, parseInt(item.dataset.srcTop)).toString() + "%"
+                    item.style.height = pix2pr(height, parseInt(item.dataset.srcHeight)).toString() + "%"
+                    item.style.left = pix2pr(width, parseInt(item.dataset.srcLeft)).toString() + "%"
+                    item.style.width = pix2pr(width, parseInt(item.dataset.srcWidth)).toString() + "%"
+                }
+
+            } else {
+                for (var i = 0; i < face_borders_arr.length; i++) {
+                    var item = face_borders_arr[i];
+                    item.style.top = (parseInt(item.dataset.srcTop)).toString() + "px"
+                    item.style.height = (parseInt(item.dataset.srcHeight)).toString() + "px"
+                    item.style.left = (parseInt(item.dataset.srcLeft)).toString() + "px"
+                    item.style.width = (parseInt(item.dataset.srcWidth)).toString() + "px"
+                }
+            }
         }
+        pos_face_border()
+        window.addEventListener('resize', pos_face_border);
+        document.addEventListener('resize', pos_face_border);
+
+        //document.getElementById('photo_view_div').parentNode .offsetWidth
     </script>
 {% endblock %}
