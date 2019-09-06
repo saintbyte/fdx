@@ -19,21 +19,40 @@
     {{ image.file_md5 }}<br/>
     {{ image.width }}x{{ image.height }}
     {# for top, right, bottom, left in face_locations: #}
-    <script>
+     <script>
         function pix2pr(srcD, pixV) {
             return ( pixV / srcD) * 100
         }
-        var div = document.getElementById('photo_view_div')
-        var image = div.getElementsByClassName('photo')[0]
-        var width = parseInt(image.dataset.imageWidth, 10)
-        var height = parseInt(image.dataset.imageHeight, 10)
-        var face_borders_arr = div.getElementsByClassName('face_border');
-        for (var i = 0; i < face_borders_arr.length; i++) {
-            var item = face_borders_arr[i]
-            item.style.top = pix2pr(height, parseInt(item.dataset.srcTop)).toString() + "%"
-            item.style.height = pix2pr(height, parseInt(item.dataset.srcHeight)).toString() + "%"
-            item.style.left = pix2pr(width, parseInt(item.dataset.srcLeft)).toString() + "%"
-            item.style.width = pix2pr(width, parseInt(item.dataset.srcWidth)).toString() + "%"
+        var div = document.getElementById('photo_view_div');
+        var image = div.getElementsByClassName('photo')[0];
+        var width = parseInt(image.dataset.imageWidth, 10);
+        var height = parseInt(image.dataset.imageHeight, 10);
+        function pos_face_border() {
+            var face_borders_arr = div.getElementsByClassName('face_border');
+            if (document.getElementById('photo_view_div').parentNode.offsetWidth < width) {
+
+                for (var i = 0; i < face_borders_arr.length; i++) {
+                    var item = face_borders_arr[i];
+                    item.style.top = pix2pr(height, parseInt(item.dataset.srcTop)).toString() + "%"
+                    item.style.height = pix2pr(height, parseInt(item.dataset.srcHeight)).toString() + "%"
+                    item.style.left = pix2pr(width, parseInt(item.dataset.srcLeft)).toString() + "%"
+                    item.style.width = pix2pr(width, parseInt(item.dataset.srcWidth)).toString() + "%"
+                }
+
+            } else {
+                for (var i = 0; i < face_borders_arr.length; i++) {
+                    var item = face_borders_arr[i];
+                    item.style.top = (parseInt(item.dataset.srcTop)).toString() + "px"
+                    item.style.height = (parseInt(item.dataset.srcHeight)).toString() + "px"
+                    item.style.left = (parseInt(item.dataset.srcLeft)).toString() + "px"
+                    item.style.width = (parseInt(item.dataset.srcWidth)).toString() + "px"
+                }
+            }
         }
+        pos_face_border()
+        window.addEventListener('resize', pos_face_border);
+        document.addEventListener('resize', pos_face_border);
+
+        //document.getElementById('photo_view_div').parentNode .offsetWidth
     </script>
 {% endblock %}
