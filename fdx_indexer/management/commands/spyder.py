@@ -15,8 +15,5 @@ from fdx_search.models import *
 class Command(BaseCommand):
     help = '---'
 
-    def add_arguments(self, parser):
-        parser.add_argument('--file', nargs='+', help="File for parse")
-
     def handle(self, *args, **options):
         pass
