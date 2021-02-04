@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
-from .models import UploadedImages, Faces, Pages, Peoples, Images
+from .models import UploadedImages, Faces, Images
 import face_recognition
-import numpy as np
 import hashlib
 from PIL import Image
 from .utils import encode_face_link, decode_face_link
@@ -30,19 +28,16 @@ def search(request):
     try:
         UploadedImages.objects.get(md5=file_md5)
         return redirect('search_1', slug11=file_md5)
-    except:
+    except Exception:
         pass
-    # -----
     try:
         im = Image.open(request.FILES['file'])
         (width, height) = im.size
-    except:
+    except Exception:
         return search_error(request, "Плохая картинка")
-    # -----
     ctx['file_md5'] = file_md5
     ctx['width'] = width
     ctx['height'] = height
-
     ui = UploadedImages()
     ui.file = request.FILES['file']
     ui.md5 = file_md5
@@ -50,8 +45,6 @@ def search(request):
     ui.height = height
     ui.state = 0
     ui.save()
-
-    # return render(request, 'fdx_search/search.html',ctx)
     return redirect('search_1', slug11=file_md5)
 
 
@@ -59,7 +52,7 @@ def search1(request, slug11):
     ctx = {}
     try:
         ui = UploadedImages.objects.get(md5=slug11)
-    except:
+    except Exception:
         return search_error(request, 'Поиск не найден')
     ctx['image'] = ui
     image = face_recognition.load_image_file(ui.file.path)
@@ -95,7 +88,7 @@ def search2(request, slug11, slug22):
     ctx = {}
     try:
         ui = UploadedImages.objects.get(md5=slug11)
-    except:
+    except Exception:
         return search_error(request, 'Поиск не найден')
     ctx['image'] = ui
     image = face_recognition.load_image_file(ui.file.path)
@@ -115,7 +108,6 @@ def search2(request, slug11, slug22):
             'link': encode_face_link(cnt, top, right, bottom, left)
         })
         cnt = cnt + 1
-
     (num, top, right, bottom, left) = decode_face_link(slug22)
     encoding = face_recognition.face_encodings(image, known_face_locations=face_locations)[num]
     ctx['num'] = num

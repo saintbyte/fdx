@@ -1,8 +1,6 @@
 from django.db import models
-from .storage import Md5FileSystemStorage
 from django.conf import settings
 import os
-import hashlib
 from any_imagefield.models import AnyImageField
 from django_pgcube.fields import CubeField
 
@@ -31,6 +29,7 @@ class UploadedImages(models.Model):
     class Meta:
         verbose_name_plural = 'Картинки загруженные для поиска'
         verbose_name = 'Картинки загруженные для поиска'
+
 
 class Peoples(models.Model):
     name = models.CharField(max_length=1024, verbose_name='Название персоны')
@@ -75,3 +74,4 @@ class Faces(models.Model):
     class Meta:
         verbose_name_plural = 'Лица'
         verbose_name = 'Лицо'
+
