@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import UploadedImages, Faces, Images
+from .models import UploadedImages, Faces
 import face_recognition
 import hashlib
 from PIL import Image
@@ -94,7 +94,6 @@ def search2(request, slug11, slug22):
     image = face_recognition.load_image_file(ui.file.path)
     ctx['face_locations'] = []
     face_locations = face_recognition.face_locations(image)
-    faces = len(ctx['face_locations'])
     cnt = 0
     for top, right, bottom, left in face_locations:
         ctx['face_locations'].append({
@@ -120,7 +119,6 @@ def search2(request, slug11, slug22):
     ctx['encoding'] = encoding
     searched_vec_low = ','.join(str(s) for s in encoding[0:64])
     searched_vec_high = ','.join(str(s) for s in encoding[64:128])
-    threshold = 0.5
     query = """
             SELECT id, sqrt(
                            power(
@@ -131,11 +129,10 @@ def search2(request, slug11, slug22):
                              CUBE(array[{}]) <-> vec_high, 2)
                            ) AS koof
                            FROM fdx_search_faces
-
                            ORDER BY
                               koof
                            LIMIT 10
-            """.format(searched_vec_low, searched_vec_high, threshold)
+            """.format(searched_vec_low, searched_vec_high)
     ctx['query'] = query
     ctx['results'] = Faces.objects.raw(query)
     return render(request, 'fdx_search/search2.html', ctx)

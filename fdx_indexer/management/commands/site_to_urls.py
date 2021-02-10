@@ -28,7 +28,7 @@ class Command(BaseCommand):
             try:
                 req = urllib.request.Request(url)
                 response = urllib.request.urlopen(req)
-            except:
+            except Exception:
                 e,v, tv = sys.exc_info()
                 print(e)
                 print(v)

@@ -6,4 +6,4 @@ class UploadedImagesAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(UploadedImages,UploadedImagesAdmin)
+admin.site.register(UploadedImages, UploadedImagesAdmin)

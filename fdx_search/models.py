@@ -48,21 +48,40 @@ class Pages(models.Model):
 
 
 class Images(models.Model):
-    page = models.ForeignKey(Pages, on_delete=models.CASCADE, related_name="image2page", blank=True, null=True,
-                             verbose_name="Веб страница")
+    page = models.ForeignKey(
+        Pages, 
+        on_delete=models.CASCADE, 
+        related_name="image2page", 
+        blank=True, 
+        null=True,
+        verbose_name="Веб страница"
+    )
     url = models.CharField(max_length=1024, default="", verbose_name="Адрес")
-    alt = models.CharField(max_length=1024, default="",verbose_name='Alt')
+    alt = models.CharField(max_length=1024, default="", verbose_name='Alt')
     tagNum = models.IntegerField(blank=True, default=0, verbose_name='Tag')
+
     class Meta:
         verbose_name_plural = 'Изображения'
         verbose_name = 'Изображение'
 
 
 class Faces(models.Model):
-    image = models.ForeignKey(Images, on_delete=models.CASCADE, related_name="face2image", blank=True, null=True,
-                              verbose_name="Картинка")
-    people = models.ForeignKey(Peoples, on_delete=models.CASCADE, related_name="face2people", blank=True, null=True,
-                               verbose_name="Персона")
+    image = models.ForeignKey(
+        Images, 
+        on_delete=models.CASCADE, 
+        related_name="face2image", 
+        blank=True, 
+        null=True,
+        verbose_name="Картинка"
+    )
+    people = models.ForeignKey(
+        Peoples, 
+        on_delete=models.CASCADE, 
+        related_name="face2people",
+        blank=True,
+        null=True,
+        verbose_name="Персона"
+    )
     top = models.IntegerField(blank=True, default=0, verbose_name='Top')
     right = models.IntegerField(blank=True, default=0, verbose_name='Right')
     bottom = models.IntegerField(blank=True, default=0, verbose_name='Bottom')

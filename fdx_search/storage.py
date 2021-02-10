@@ -1,10 +1,10 @@
 __author__ = 'sb'
 
 import os
-from django.utils.crypto import get_random_string
 from django.core.files.storage import FileSystemStorage
 
 RANDOM_FILENAME_LENGTH = 60
+
 
 class Md5FileSystemStorage(FileSystemStorage):
 
@@ -19,3 +19,4 @@ class Md5FileSystemStorage(FileSystemStorage):
             return name
         # if the file is new, DO call it
         return super(Md5FileSystemStorage, self)._save(name, content)
+
