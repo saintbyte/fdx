@@ -110,10 +110,10 @@ def search2(request, slug11, slug22):
     (num, top, right, bottom, left) = decode_face_link(slug22)
     encoding = face_recognition.face_encodings(image, known_face_locations=face_locations)[num]
     ctx['num'] = num
+    ctx['top'] = top
     ctx['left'] = left
     ctx['right'] = right
     ctx['bottom'] = bottom
-    ctx['left'] = bottom
     ctx['width'] = (right - left)
     ctx['height'] = (bottom - top)
     ctx['encoding'] = encoding
