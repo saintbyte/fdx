@@ -9,3 +9,7 @@ Face index
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=saintbyte_fdx&metric=code_smells)](https://sonarcloud.io/dashboard?id=saintbyte_fdx)
 
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=saintbyte_fdx&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=saintbyte_fdx)
+
+
+Dump of data  based on Wikipedia
+https://disk.yandex.ru/d/V0SFw-aUSI_kfA
